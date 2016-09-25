@@ -15,6 +15,7 @@ class EmptyImagen{
       int GetHeight();//Obtiene cantidad de filas
       int GetWidht();//Obtiene cantidad de columnas
       int SetValue(int row, int column,int value);//Setea valor en fila columna
+      int ClearImagen();
       int PrintImagen();//Imprime la imagen
       virtual ~EmptyImagen();
     protected:

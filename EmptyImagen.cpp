@@ -29,6 +29,16 @@ int EmptyImagen::GetHeight(){
   return this->height;
 }
 
+int EmptyImagen::ClearImagen(){
+  int i,j;
+  for (i = 0; i< this->height; i++){
+    for (j = 0; j< this->width; j++){
+        this->SetValue(i,j,0);
+    }
+  }
+  return 0;
+}
+
 int EmptyImagen::PrintImagen(){
   int i,j,value;
   std::cout<<this->width<<" "<<this->height<<std::endl;

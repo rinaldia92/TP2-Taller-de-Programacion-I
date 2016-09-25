@@ -24,5 +24,21 @@ int Imagen::SetRow(int row, std::string line){
   return 0;
 }
 
+Imagen& Imagen::operator=(EmptyImagen &other){
+  int i,j,value;
+
+  this->ClearImagen();
+  this->height = other.GetHeight();
+  this->width = other.GetWidht();
+
+  for (i = 0; i< this->height; i++){
+    for (j = 0; j< this->width; j++){
+        value = other.GetValue(i,j);
+        this->SetValue(i,j,value);
+    }
+  }
+  return *this;
+}
+
 Imagen::~Imagen(){
 }

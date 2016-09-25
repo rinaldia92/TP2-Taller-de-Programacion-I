@@ -9,6 +9,7 @@ class Imagen: public EmptyImagen {
     public:
       Imagen(int height,int width);//Constructor
       int SetRow(int row, std::string line);//Setea una fila completa
+      Imagen& operator=(EmptyImagen &other);
       virtual ~Imagen();//Destructor
     protected:
     private:

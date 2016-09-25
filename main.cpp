@@ -19,7 +19,6 @@
     std::string patron;
     std::string filas,columnas;
     std::string archivo;
-    std::vector<EmptyImagen> v;//vector para guardar imagen original y vacias
     std::vector<Thread*> threads;
     std::mutex m;
 
@@ -41,17 +40,11 @@
         imagen.SetRow(i,archivo);
     }
 
-    v.push_back(imagen);
-
-
-    for (i = 0; i < argc/2 -1 ; i++){
-      EmptyImagen nuevaimagen(stoi(filas),stoi(columnas));
-      v.push_back(nuevaimagen);
-    }
+    EmptyImagen nuevaimagen(stoi(filas),stoi(columnas));
 
     cantthreads = atoi(argv[1]);
     //cantfilasthreads = imagen.GetHeight()/cantthreads;
-    //cantthreads++; //Para que pase el make
+
     i = 0;
     for (k = 2; k < argc-1; k+=2){
       filtro = argv[k];
@@ -59,18 +52,15 @@
       std::istringstream iss(patron);
       iss >> columnas;
       iss >> filas;
-      if (k == 2){}
       Imagen impatron(stoi(filas),stoi(columnas));
       for (j = 0; j < stoi(filas); j++){
           iss >> patron;
           impatron.SetRow(j,patron);
       }
 
-
-
       if (filtro == "d"){
         for (j = 0; j < cantthreads; j++){
-        	threads.push_back(new Dilatacion(&v[i],(j/cantthreads)*filasimagen,((j+1)/cantthreads)*filasimagen,&impatron,v[i+1],m));
+        	threads.push_back(new Dilatacion(&imagen,(j/cantthreads)*filasimagen,((j+1)/cantthreads)*filasimagen,&impatron,nuevaimagen,m));
         }
 
         for (j = 0; j < cantthreads; j++){
@@ -85,7 +75,7 @@
       } else {
 
       	for (j = 0; j < cantthreads; j++){
-      		threads.push_back(new Erosion(&v[i],(j/cantthreads)*filasimagen,((j+1)/cantthreads)*filasimagen,&impatron,v[i+1],m));
+      		threads.push_back(new Erosion(&imagen,(j/cantthreads)*filasimagen,((j+1)/cantthreads)*filasimagen,&impatron,nuevaimagen,m));
         }
 
         for (j = 0; j < cantthreads; j++){
@@ -98,12 +88,10 @@
         threads.clear();
       }
       i++;
+      imagen = nuevaimagen;
     }
 
-
-    v.back().PrintImagen();
-
-    v.clear();
+    imagen.PrintImagen();
 
     return COD_RET_EXITO;
 }
