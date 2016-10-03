@@ -1,30 +1,62 @@
 #include "Imagen.h"
 #include <iostream>
-#include <string>
 
-Imagen::Imagen(int height,int width):EmptyImagen(height,width){
+
+Imagen::Imagen(int height ,int width){
   this->width = width;
   this->height = height;
   this->matrix.assign(width*height,0);
 }
 
-int Imagen::SetRow(int row, std::string line){
-  std::string aux;
-  int it;
-  int value;
-  for (it = 0; it < this->width; it++){
-    aux = line.substr(it,1);
-    if (aux == "#"){
-      value = 1;
-    } else {
-      value = 0;
+int Imagen::SetValue(int row, int column,int value){
+  int pos;
+  pos = (this->width)*row + column;
+  this->matrix[pos] = value;
+  return 0;
+}
+
+int Imagen::GetValue(int row, int column){
+  int pos;
+  pos = (this->width)*row + column;
+  return this->matrix[pos];
+}
+
+int Imagen::GetWidht(){
+  return this->width;
+}
+
+int Imagen::GetHeight(){
+  return this->height;
+}
+
+int Imagen::ClearImagen(){
+  int i,j;
+  for (i = 0; i< this->height; i++){
+    for (j = 0; j< this->width; j++){
+        this->SetValue(i,j,0);
     }
-    this->SetValue(row,it,value);
   }
   return 0;
 }
 
-Imagen& Imagen::operator=(EmptyImagen &other){
+int Imagen::PrintImagen(){
+  int i,j,value;
+  std::cout<<this->width<<" "<<this->height<<std::endl;
+  for (i = 0; i< this->height; i++){
+    for (j = 0; j< this->width; j++){
+        value = this->GetValue(i,j);
+        if (value == 1)
+          std::cout<<"#";
+        else
+          std::cout<<".";
+    }
+    //if (i != this->height -1)
+      std::cout<<std::endl;
+  }
+  return 0;
+}
+
+Imagen& Imagen::operator=(Imagen &other){
   int i,j,value;
 
   this->ClearImagen();

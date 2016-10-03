@@ -3,19 +3,28 @@
 
 #include <vector>
 #include <string>
-#include "EmptyImagen.h"
 
-class Imagen: public EmptyImagen {
+/*Clase que representa una imagen como una matriz inicializada en 0 en base
+a la cantidad de filas y columnas que posee. Se lo implemento a traves de un
+vector*/
+
+class Imagen{
     public:
       Imagen(int height,int width);//Constructor
-      int SetRow(int row, std::string line);//Setea una fila completa
-      Imagen& operator=(EmptyImagen &other);
-      virtual ~Imagen();//Destructor
+      int GetValue(const int row,const int column);//Obtiene el valor segun fila y columna
+      int GetHeight();//Obtiene cantidad de filas
+      int GetWidht();//Obtiene cantidad de columnas
+      int SetValue(const int row,const int column,const int value);//Setea valor en fila columna
+      int ClearImagen();
+      int PrintImagen();//Imprime la imagen
+      Imagen& operator=(Imagen &other);
+      virtual ~Imagen();
     protected:
-    private:
       std::vector<int> matrix;
       int width;
       int height;
+    private:
+
 };
 
 #endif
