@@ -11,20 +11,21 @@ vector*/
 class Imagen{
     public:
       Imagen(int height,int width);//Constructor
-      int GetValue(const int row,const int column);//Obtiene el valor segun fila y columna
+      //Obtiene el valor segun fila y columna
+      int GetValue(const int row,const int column);
       int GetHeight();//Obtiene cantidad de filas
       int GetWidht();//Obtiene cantidad de columnas
-      int SetValue(const int row,const int column,const int value);//Setea valor en fila columna
-      int ClearImagen();
+      //Setea valor en fila columna
+      int SetValue(const int row,const int column,const int value);
+      int ClearImagen();//Limpia la imagen
       int PrintImagen();//Imprime la imagen
-      Imagen& operator=(Imagen &other);
+      Imagen& operator=(Imagen &other);//Copia por asignacion
       virtual ~Imagen();
     protected:
       std::vector<int> matrix;
       int width;
       int height;
     private:
-
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include "Filtrador.h"
+#include <string>
 
 Filtrador::Filtrador(){
 }
@@ -9,7 +10,8 @@ int Filtrador::AplicarFiltro(std::string filtro,int cantthreads, Imagen &img,
     filas = img.GetHeight();
     if (filtro == DILATACION){
       for (j = 0; j < cantthreads; j++){
-        threads.push_back(new Dilatacion(img,(j/cantthreads)*filas,((j+1)/cantthreads)*filas,pat,nimg,m));
+        threads.push_back(new Dilatacion(img,(j/cantthreads)*filas,
+                    ((j+1)/cantthreads)*filas,pat,nimg,m));
       }
 
       for (j = 0; j < cantthreads; j++){
@@ -20,21 +22,22 @@ int Filtrador::AplicarFiltro(std::string filtro,int cantthreads, Imagen &img,
           delete (threads[j]);
       }
       threads.clear();
+    } else{
+      if (filtro == EROSION){
+        for (j = 0; j < cantthreads; j++){
+          threads.push_back(new Erosion(img,(j/cantthreads)*filas,
+                  ((j+1)/cantthreads)*filas,pat,nimg,m));
+        }
 
-    } else {
-
-      for (j = 0; j < cantthreads; j++){
-        threads.push_back(new Erosion(img,(j/cantthreads)*filas,((j+1)/cantthreads)*filas,pat,nimg,m));
+        for (j = 0; j < cantthreads; j++){
+            threads[j]->start();
+        }
+        for (j = 0; j < cantthreads; j++){
+            threads[j]->join();
+            delete (threads[j]);
+        }
+        threads.clear();
       }
-
-      for (j = 0; j < cantthreads; j++){
-          threads[j]->start();
-      }
-      for (j = 0; j < cantthreads; j++){
-          threads[j]->join();
-          delete (threads[j]);
-      }
-      threads.clear();
     }
     i++;
     img = nimg;
@@ -42,5 +45,4 @@ int Filtrador::AplicarFiltro(std::string filtro,int cantthreads, Imagen &img,
 }
 
 Filtrador::~Filtrador(){
-
 }

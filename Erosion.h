@@ -2,7 +2,6 @@
 #define EROSION_H
 
 #include "Thread.h"
-//#include "Imagen.h"
 #include "Imagen.h"
 #include <mutex>
 
@@ -11,8 +10,7 @@ class Erosion: public Thread{
   public:
     Erosion(Imagen &img, int inifil, int finfil,
       Imagen &pat, Imagen &nimg, std::mutex &m);//Constructor
-    /*Aplica un filtro a una imagen desde una fila hasta otra segun un patron
-    y lo setea en la nueva imagen*/
+    //Aplica un filtro a una imagen
     virtual void run();
     virtual ~Erosion();//Destructor
   private:

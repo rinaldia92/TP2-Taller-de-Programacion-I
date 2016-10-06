@@ -9,31 +9,19 @@ class Thread {
         std::thread thread;
 
     public:
-        Thread () {}
-
-        void start() {
-            thread = std::thread(&Thread::run, this);
-        }
-
-        void join() {
-            thread.join();
-        }
-
-        virtual void run() = 0;
-        virtual ~Thread() {}
+        Thread();//Constructor
+        void start();//Inicializa el thread
+        void join();//Joinea el thread
+        virtual void run() = 0;//Metodo abstracto
+        virtual ~Thread();//Destructor
 
     private:
+        //Objeto no copiable
         Thread(const Thread&) = delete;
         Thread& operator=(const Thread&) = delete;
-
-        Thread(Thread&& other) {
-            this->thread = std::move(other.thread);
-        }
-
-        Thread& operator=(Thread&& other) {
-            this->thread = std::move(other.thread);
-            return *this;
-        }
+        //asignacion por movimiento
+        Thread(Thread&& other);
+        Thread& operator=(Thread&& other);
 };
 
 #endif

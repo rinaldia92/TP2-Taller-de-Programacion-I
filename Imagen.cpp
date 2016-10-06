@@ -41,17 +41,16 @@ int Imagen::ClearImagen(){
 
 int Imagen::PrintImagen(){
   int i,j,value;
-  std::cout<<this->width<<" "<<this->height<<std::endl;
+  std::cout << this->width << " " << this->height << std::endl;
   for (i = 0; i< this->height; i++){
     for (j = 0; j< this->width; j++){
         value = this->GetValue(i,j);
         if (value == 1)
-          std::cout<<"#";
+          std::cout << "#";
         else
-          std::cout<<".";
+          std::cout << ".";
     }
-    //if (i != this->height -1)
-      std::cout<<std::endl;
+      std::cout << std::endl;
   }
   return 0;
 }
@@ -69,6 +68,7 @@ Imagen& Imagen::operator=(Imagen &other){
         this->SetValue(i,j,value);
     }
   }
+  other.ClearImagen();
   return *this;
 }
 

@@ -35,15 +35,10 @@
           aux = archivo.substr(j,1);
           if (aux == "#"){
             imagen.SetValue(i,j,1);
-            //value = 1;
           } else {
             imagen.SetValue(i,j,0);
-            //value = 0;
           }
-          //this->SetValue(row,it,value);
         }
-
-        //imagen.SetRow(i,archivo);
     }
 
     Imagen nuevaimagen(filimg,colimg);
@@ -52,8 +47,6 @@
 
     Filtrador filtrador;
 
-
-    //i = 0;
     for (k = 2; k < argc-1; k+=2){
       filtro = argv[k];
       patron = argv[k+1];
@@ -67,17 +60,15 @@
             aux = patron.substr(j,1);
             if (aux == "#"){
               impatron.SetValue(i,j,1);
-              //value = 1;
             } else {
               impatron.SetValue(i,j,0);
-              //value = 0;
             }
-            //this->SetValue(row,it,value);
           }
-          //impatron.SetRow(j,patron);
       }
 
       filtrador.AplicarFiltro(filtro,cantthreads,imagen,impatron,nuevaimagen);
+      filtro.clear();
+      patron.clear();
     }
 
     imagen.PrintImagen();

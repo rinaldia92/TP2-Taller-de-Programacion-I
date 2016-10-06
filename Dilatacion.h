@@ -2,7 +2,6 @@
 #define DILATACION_H
 
 #include "Imagen.h"
-//#include "Imagen.h"
 #include "Thread.h"
 #include <mutex>
 
@@ -10,8 +9,7 @@ class Dilatacion: public Thread{
   public:
     Dilatacion(Imagen &img, int inifil, int finfil,
       Imagen &pat, Imagen &nimg, std::mutex &m);//Constructor
-    /*Aplica un filtro a una imagen desde una fila hasta otra segun un patron
-    y lo setea en la nueva imagen*/
+    //Aplica el filtro a una imagen
     virtual void  run();
     virtual ~Dilatacion();//Destructor
   private:
